@@ -24,9 +24,9 @@ body{
     background-color:wheat;
     border: 0;
     border-radius: 5px;
-    font-size: 14px;
-    margin-left: 15px;
-    padding: 5px 15px 5px 15px;
+    font-size: 12px;
+    margin-left: 5px;
+    padding: 2.5px 10px 2.5px 10px;
     appearance: none;
 }
 
