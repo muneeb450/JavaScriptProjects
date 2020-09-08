@@ -4,18 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+
     <title>Seat Selection</title>
+
 </head>
+
+
 <body>
+    
+    
     <div class="movie-container">
-        <label>Please select your movie</label>
-        <select id="movie">
-            <option value="15">Top Gun: Maverick ($15)</option>
-            <option value="20">No Time To Die ($20)</option>
-            <option value="10">The Lion King ($10)</option>
-            <option value="12">Mission Impossible 5 ($12)</option>
-            <option value="15">Jumanji ($15)</option>
-        </select>
+        <label>Please Select Your Movie</label>
+        <Select id="movie">
+            <option value="30">Hitman Agent 47 ($30)</option>
+            <option value="30">Rambo Last Blood ($30)</option>
+            <option value="15">Escape Plan ($15)</option>
+            <option value="20">The Expandables 3 ($20)</option>
+            <option value="25">Iron Man ($25)</option>
+        </Select>
     </div>
 
     <ul class="legend">
@@ -23,12 +29,14 @@
             <div class="seat"></div>
             <small>Available</small>
         </li>
+
         <li>
             <div class="seat selected"></div>
             <small>Selected</small>
         </li>
+
         <li>
-            <div class="seat Occupied"></div>
+            <div class="seat occupied"></div>
             <small>Occupied</small>
         </li>
     </ul>
@@ -36,74 +44,77 @@
     <div class="container">
         <div class="screen"></div>
         <div class="row">
-            <div class="seat Occupied"></div>
-            <div class="seat Occupied"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat Occupied"></div>
-            <div class="seat Occupied"></div>
-        </div>
-        
-        <div class="row">
-            <div class="seat"></div>
-            <div class="seat "></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat Occupied"></div>
-            <div class="seat Occupied"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
+            <div class="seat occupied">1</div>
+            <div class="seat occupied">2</div>
+            <div class="seat">3</div>
+            <div class="seat">4</div>
+            <div class="seat">5</div>
+            <div class="seat">6</div>
+            <div class="seat">7</div>
+            <div class="seat">8</div>
         </div>
         <div class="row">
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat Occupied"></div>
-            <div class="seat Occupied"></div>
-            <div class="seat Occupied"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
+            <div class="seat">9</div>
+            <div class="seat">10</div>
+            <div class="seat occupied">11</div>
+            <div class="seat occupied">12</div>
+            <div class="seat">13</div>
+            <div class="seat">14</div>
+            <div class="seat">15</div>
+            <div class="seat">16</div>
         </div>
         <div class="row">
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
+            <div class="seat">17</div>
+            <div class="seat">18</div>
+            <div class="seat">19</div>
+            <div class="seat">20</div>
+            <div class="seat">21</div>
+            <div class="seat">22</div>
+            <div class="seat occupied">23</div>
+            <div class="seat occupied">24</div>
         </div>
         <div class="row">
-            <div class="seat"></div>
-            <div class="seat Occupied"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat Occupied"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
+            <div class="seat">25</div>
+            <div class="seat">26</div>
+            <div class="seat occupied">27</div>
+            <div class="seat occupied">28</div>
+            <div class="seat occupied">29</div>
+            <div class="seat occupied">30</div>
+            <div class="seat">31</div>
+            <div class="seat">32</div>
         </div>
         <div class="row">
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat"></div>
-            <div class="seat Occupied"></div>
-            <div class="seat Occupied"></div>
+            <div class="seat occupied">33</div>
+            <div class="seat occupied">34</div>
+            <div class="seat">35</div>
+            <div class="seat">36</div>
+            <div class="seat">37</div>
+            <div class="seat">38</div>
+            <div class="seat">39</div>
+            <div class="seat">40</div>
+        </div>
+        <div class="row">
+            <div class="seat">41</div>
+            <div class="seat">42</div>
+            <div class="seat occupied">43</div>
+            <div class="seat occupied">44</div>
+            <div class="seat">45</div>
+            <div class="seat">46</div>
+            <div class="seat">47</div>
+            <div class="seat">48</div>
         </div>
     </div>
 
     <p class="text">
-        You have selected <span id="count">0</span> seats for a total price of $<span id="total">0</span>
-
+        you have selected <span id="count">0</span> seats for a total price of $<span id="total">0</span>.
     </p>
 
+    <div class="buttons">
+        <a href="../index.html"><button id="home">HOME</button></a>
+        <button id="buy">BUY</button>
+    </div>
+    
 
-    <script src="script.js"></script>
+    <script src="style.js"></script>
 </body>
 </html>
