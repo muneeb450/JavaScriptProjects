@@ -3,58 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css">
-    <title>Memory Cards</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <title>Fast Typing Game</title>
 </head>
 <body>
-    
-    <button class="btn btn-clear" id="clear-btn">
-        <i class="fas fa-trash"></i> Clear Cards
+    <button class="settings-btn" id="settings-btn">
+        <i class="fas fa-cog"></i>
     </button>
 
-    <h1>
-        Memory Cards
-        <button class="btn btn-small" id="add-card">
-            <i class="fas fa-plus"></i> Add New Card
-        </button>
-    </h1>
-
-    <div class="card-container" id="card-container"></div>
-
-    <div class="navigation">
-        <button class="nav-btn" id="prev-btn">
-            <i class="fas fa-arrow-left"></i>
-        </button>
-
-        <div id="current-card">
-            <p></p>
-        </div>
-        
-        <button class="nav-btn" id="next-btn">
-            <i class="fas fa-arrow-right"></i>
-        </button>
+    <div class="settings" id="settings">
+        <form id="settings-form">
+            <div>
+                <label for="difficulty">Difficulty</label>
+                <select id="difficulty">
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+        </form>
     </div>
 
-    <div class="add-card-container" id="add-card-container">
-        <h1>Add New Card
-            <button class="btn btn-small btn-ghost" id="close-card">
-                <i class="fas fa-times"></i>
-            </button>
-        </h1>
+    <div class="container">
+        <h2>Fast Typing Game</h2>
+        <small>Type the word below:</small>
 
-        <div class="form-control">
-            <label for="question">Question</label>
-            <textarea id="question" placeholder="Enter question here"></textarea>
-        </div>
-        <div class="form-control">
-            <label for="answer">Answer</label>
-            <textarea id="answer" placeholder="Enter answer here"></textarea>
-        </div>
-        <button class="btn" id="add-card-btn">
-            <i class="fas fa-plus"></i> Add Card
-        </button>
+        <h1 id="word">Axiom</h1>
+
+        <input type="text" id="text" autocomplete="off" placeholder="Enter the word above">
+
+        <p class="time-container">
+            Time: <span id="time">15s</span>
+        </p>
+
+        <p class="score-container">
+            Score: <span id="score">0</span>
+        </p>
     </div>
+
+    <div class="end-game-container" id="end-game-container"></div>
     
     <script src="script.js"></script>
 </body>
