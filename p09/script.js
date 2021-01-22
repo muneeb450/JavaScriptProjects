@@ -1,119 +1,107 @@
-// Get DOM elements
-const balance = document.getElementById('balance');
-const money_plus = document.getElementById('money-plus');
-const money_minus =document.getElementById('money-minus');
-const list = document.getElementById('list');
-const form = document.getElementById('form');
-const description = document.getElementById('description');
-const amount = document.getElementById('amount');
+const search = document.getElementById('search');
+const submit = document.getElementById('submit');
+const random = document.getElementById('random');
+const resultHeading = document.getElementById('result-heading');
+const mealContainer = document.getElementById('meals');
+const selectedMeal = document.getElementById('selected-meal');
 
-//Dummy transactions
-const dummyTransactions = [
-    { id: 1, description: 'Salary', amount: 100000 },
-    { id: 2, description: 'Electric Bill', amount: -50000 },
-    { id: 3, description: 'Internet Bill', amount: -10000  },
-    { id: 4, description: 'profit', amount: 50000  }
-];
+// Function to search meal from API and fetch the data
+function searchMeal(e) {
+    e.preventDefault()
 
-let transactions= dummyTransactions;
+    // Clear Selected Meal
+    selectedMeal.innerHTML = '';
 
-// Functinon to generate an ID
-function generateID() {
-    return Math.floor(Math.random() * 100000000);
-}
-
-//Add a new transaction from the form
-function addTransaction(e) {
-    e.preventDefault();
-
-    if( description.value.trim() === '' || amount.value.trim() === '' ) {
-        alert(`Please enter a valid description and transaction amount.`)
+    // Get the search term from input field
+    const term = search.value;
+    
+    // Check if search term exists
+    if(term.trim()) {
+        fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${term}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                resultHeading.innerHTML = `<h2>Search results for '${term}':</h2>`
+                if(data.meals === null) {
+                    resultHeading.innerHTML = `<p>There are no search results for '${term}'. Please try a different search.</p>`
+                } else {
+                    mealContainer.innerHTML = data.meals.map( meal => `
+                        <div class="meal">
+                            <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
+                            <div class="meal-info" data-mealID="${meal.idMeal}">
+                                <h3>${meal.strMeal}</h3>
+                            </div>
+                        </div>
+                    `)
+                    .join('')
+                }
+            })
     } else {
-        const transaction = {
-            id: generateID(),
-            description: description.value,
-            amount: +amount.value
-            };
-        
-        transactions.push(transaction);
-
-        addTransactionUI(transaction);
-        updateSums();
-    
-        description.value = '';
-        amount.value = '';  
-        
+        alert('Please enter a valid search.')
     }
+
+    // Clear Search Term
+    search.value = '';
 }
 
-//Function to remove a transaction
-function deleteTransaction(id) {
-    transactions = transactions.filter( transaction => transaction.id != id );
-    init();
+// Function to fetch meal data using the meal id
+function getMealById(mealID) {
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID}`)
+        .then( res => res.json())
+        .then( data => {
+            const meal = data.meals[0];
+            addMealToDOM(meal);
+        })
 }
 
-//Function to display Transaction in Transaction History
-function addTransactionUI(transaction) {
-    //Clissify if income or expanse
-    const type = transaction.amount > 0 ? '+' : '-';
+// Function to add a meal to DOM
+function addMealToDOM(meal) {
+    const ingredients = [];
 
-    //Creat DOM element for list items
-    const item = document.createElement('li');
+    for(let i = 1; i <= 20; i++) {
+        if(meal[`strIngredient${i}`]) {
+            ingredients.push(`${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}`);
+        } else {
+            break;
+        }
+    };
 
-    //Add class for list item based on type
-    item.classList.add( transaction.amount > 0 ? 'plus' : 'minus' );
-
-    item.innerHTML = `
-        ${transaction.description}
-        <span>${type}${Math.abs(transaction.amount)}</span>
-        <button class="delete-btn" onclick="deleteTransaction(${transaction.id})">X</button>  
+    selectedMeal.innerHTML = `
+        <div class="selected-meal">
+            <h1>${meal.strMeal}</h1>
+            <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
+            <div class="selected-meal-info">
+                ${meal.strCategory ? `<p>${meal.strCategory}</p>` : '' }
+                ${meal.strArea ? `<p>${meal.strArea}</p>` : '' }
+            </div>
+            <div class="main">
+                <p>${meal.strInstructions}</p>
+                <h2>Ingredients</h2>
+                <ul>
+                    ${ingredients.map( ingredient => `<li>${ingredient}</li>` ).join('')}
+                </ul>
+            </div>
+        </div>
     `;
-
-    list.appendChild(item);
 }
 
-//Function to update the balance, income, expanse summaries
-function updateSums() {
-    //Creat array of transaction amount from transaction array 
-    const amounts = transactions.map( transaction => transaction.amount );
-    
-    //Calaculate total value for balance
-    const total = amounts
-                    .reduce( (acc, amount) => (acc += amount), 0 )
-                    .toFixed(2);
+// Event Listeners
+// 1. Submit Form
+submit.addEventListener('submit', searchMeal);
 
-    //Calculate total income
-    const income = amounts 
-                    .filter (amount => amount > 0)
-                    .reduce( (acc, amount) => (acc += amount), 0 )
-                    .toFixed(2);
+// 2. When Clicking a Meal
+mealContainer.addEventListener('click', e => {
+    const mealInfo = e.path.find( item => {
+        if(item.classList) {
+            return item.classList.contains('meal-info');
+        } else {
+            return false
+        }
+    });
 
-    //Calculate total expanse
-    const expense = amounts 
-                    .filter (amount => amount < 0)
-                    .reduce( (acc, amount) => (acc += amount), 0 )
-                    .toFixed(2);
+    if(mealInfo) {
+        const mealID = mealInfo.getAttribute('data-mealid');
+        getMealById(mealID);
+    }
 
-    // Update balance in DOM
-    balance.innerText = `${total} PKR`
-
-    //Update income in DOm
-    money_plus.innerText = `${income} PKR`
-
-    //Update expanse in Dom
-    money_minus.innerText = `${expense} PKR`
-} 
-
-//Function to initialise th app
-function init() {
-    list.innerHTML = '';
-    
-    transactions.forEach(addTransactionUI);
-    updateSums();
-}
-
-//Event Listeners
-//1. event listener on form submit
-form.addEventListener('submit', addTransaction);
-
-init();
+});

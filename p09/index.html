@@ -4,54 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <title>Random Meal Finder</title>
+    
 </head>
 <body>
-    <h2>Expense Tracker</h2>
     <div class="container">
-        <!-- Balance -->
-        <h4>Balance </h4>
-        <h1 id="balance">0.00 PKR</h1>
-
-        <!-- Income and Expense Summary-->
-        <div class="income-expense-container">
-            <div>
-                <h4>Income</h4>
-                <p class="money plus" id="money-plus">+0.00 PKR</p>
-            </div>
-            <div>
-                <h4>Expense</h4>
-                <p class="money minus" id="money-minus">-0.00 PKR</p>
-            </div>
+        <h1>Random Meal Finder</h1>
+        
+        <!--The Search Form-->
+        <div class="flex">
+            <form class="flex" id="submit">
+                <input type="text" id="search" placeholder="Enter meal or keyword for search.">
+                <button class="search-btn" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <button class="random-btn" id="random">
+                <i class="fas fa-random"></i>
+            </button>
         </div>
 
-        <!-- Transaction History -->
-        <h3>Transaction History</h3>
-        <ul class="list" id="list"></ul>
+        <!--Result Heading-->
+        <div id="result-heading"></div>
 
-        <!-- Form to Add New Transaction -->
-        <h3>Add New Transaction</h3>
-        <form id="form">
-            <div class="form-control">
-                <label for="description">Description</label>
-                <input type="text" id="description" placeholder="Description of Transaction" >
-            </div>
-            <div class="form-control">
-                <label for="amount">
-                    Transaction Amount<br />
-                    For income, enter positive value and for expense, enter negative.
-                </label>
-                <input type="number" id="amount" placeholder="Transaction Amount">
-            </div>
-            <button class="btn">Add Transaction</button>
-        </form>
+        <!--Container div for all means from API search-->
+        <div class="meals" id="meals"></div>
 
-
-
+        <!--To display additional information for a selected meal-->
+        <div id="selected-meal"></div>
     </div>
     
-
-
     <script src="script.js"></script>
 </body>
 </html>

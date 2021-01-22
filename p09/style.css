@@ -1,143 +1,98 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
-:root {
-    --box-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.3);
-    --plus: green;
-    --minus: maroon;
-}
-
 * {
     box-sizing: border-box;
 }
 
 body {
-    background-color: silver;
+    background-color: sienna;
+    color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+.container {
+    margin: auto;
+    max-width: 800px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-}
-
-.container {
-    width: 350px;
-    margin: 30px auto;
-}
-
-h1 {
-    margin: 0;
-    letter-spacing: 1px;
-}
-
-h3 {
-    border-bottom: 1px solid gray;
-    padding-bottom: 10px;
-    margin: 40px 0 10px;
-}
-
-h4 {
-    margin: 0;
-    text-transform: uppercase;
-}
-
-.income-expense-container {
-    background-color: whitesmoke;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
-    box-shadow: var(--box-shadow);
-}
-
-.income-expense-container > div {
-    flex: 1;
     text-align: center;
 }
 
-.income-expense-container > div:first-of-type {
-    border-right: 1px solid gray;
-}
-
-.money {
-    font-size: 18px;
-    letter-spacing: 1px;
-    margin: 5px 0;
-}
-
-.money.plus {
-    color: var(--plus);
-}
-
-.money.minus {
-    color: var(--minus);
-}
-
-.list {
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 40px;
-}
-
-.list li {
-    background-color: whitesmoke;
-    box-shadow: var(--box-shadow);
-    color: gray;
+.flex {
     display: flex;
-    justify-content: space-between;
+}
+
+input,button {
+    border: 1px solid white;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 16px;
+    padding: 10px 10px;
+    margin: 0;
+}
+
+input[type='text'] {
+    width: 300px;
+}
+
+.search-btn {
+    cursor: pointer;
+    border-left: 0;
+    border-radius: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.random-btn {
+    cursor: pointer;
+    margin-left: 20px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.meals {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    margin-top: 20px;
+}
+
+.meal {
+    cursor: pointer;
     position: relative;
-    padding: 10px;
-    margin: 10px 0;
+    width: 180px;
+    height: 180px;
+    text-align: center;
 }
 
-.list li.plus {
-    border-right: 5px solid var(--plus);
+.meal img {
+    width: 100%;
+    height: 100%;
+    border: 4px solid whitesmoke ;
+    border-radius: 8px;
 }
 
-.list li.minus {
-    border-right: 5px solid var(--minus);
-}
-
-.delete-btn {
-    background-color: var(--minus);
-    border: 0;
-    color: whitesmoke;
-    padding: 2px 5px;
-    position:absolute;
-    top: 50%;
+.meal-info {
+    position: absolute;
+    top: 0;
     left: 0;
-    transform: translate(-150%, -50%);
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease-in;
 }
 
-.list li:hover .delete-btn {
+.meal:hover .meal-info {
     opacity: 1;
 }
 
-label {
-    display: inline-block;
-    margin: 10px 0;
-}
-
-input {
-    border: 1px solid lightgray;
-    border-radius: 2px;
-    display: block;
-    font-size: 16px;
-    padding: 10px;
-    width: 100%;
-}
-
-.btn {
-    background-color: slateblue;
-    box-shadow: var(--box-shadow);
-    color: white;
-    border: 0;
-    display: block;
-    font-size: 16px;
-    margin: 10px 0 30px;
-    width: 100%;
-    padding: 10px;
+@media (max-width:500px) {
+    input[type='text'] {
+        width: 100px;
+    }
 }
