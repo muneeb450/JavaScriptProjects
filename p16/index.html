@@ -4,26 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Breathing Exercise</title>
+    <title>Search Lyrics</title>
 </head>
 <body>
-    <h1 class="heading">RELAXER</h1>
+    <!-- Page Header -->
+    <header>
+        <!-- Page Title -->
+        <h1>
+            Search Lyrics
+        </h1>
+        <!-- Search Form -->
+        <form id="form">
+            <input type="text" id="search" placeholder="Search by song title or artist name" />
+            <button>Search</button>
+        </form>
+    </header>
 
-    <div class="container" id="container">
-
-        <div class="gradient-circle"></div>
-
-        <div class="circle" id="circle">
-            <p id="text">Berath In</p>
-        </div>
-
-        <div class="pointer-container" id="pointer-container">
-            <div class="pointer"></div>
-        </div>
-
+    <!-- Results Section - display search results -->
+    <div class="container" id="results">
+        <p>Display search results here.</p>
     </div>
-    
 
+    <!-- Navigation section for previous and next buttons -->
+    <div class="container centered" id="pagination"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,147 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-*:focus {
-    outline: 0;
-}
-
-:root {
-    --color-1: rgb(0, 255, 255);
-    --color-2: rgb(250, 157, 157);
-    --color-3: rgb(71, 144, 240);
-    --in: rgba(158, 255, 78, 0.932);
-    --out: rgb(174, 220, 228);
-}
-
-::selection {
-    background-color: none;
-    color: none;
-}
-
-::-moz-selection {
-    background-color: none;
-    color: none;
 }
 
 body {
+    background-color: #f5f6fa;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(.95);
+}
+
+button:focus {
+    outline: 0;
+}
+
+header {
     position: relative;
-    background-image: url('./images/p\ 16\ d.jpg');
-    background-repeat: no-repeat;
-    background-size: 100%;
-    min-height: 100vh;
+    background-color: #dcdde1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
+    padding: 50px 0;
 }
 
-.heading {
-    color: white;
+header h1 {
+    margin: 0 0 30px;
 }
 
-small {
+form {
+    position: relative;
+    max-width: 100%;
+    width: 500px;
+}
+
+form input {
+    border: 0;
+    border-radius: 50px;
+    font-size: 16px;
+    padding: 15px 30px;
     width: 100%;
-    padding-left: 5px;
 }
 
-h1 {
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-    font-size: 2rem;
+form input:focus {
+    outline: 0;
 }
 
-@media (max-width: 500px) {
-    h1 {
-        font-size: 1rem;
-    }
+form button {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: #9c88ff;
+    color: #f5f6fa;
+    border: 0;
+    border-radius: 50px;
+    font-size: 16px;
+    padding: 13px 30px;
 }
 
 .container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%) scale(1);
-    transition: transform 3s linear;
-}
-.container.grow {
-    transform: scale(1.1);
+    margin: 30px auto;
+    max-width: 100%;
+    width: 500px;
 }
 
-.gradient-circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    background: conic-gradient(var(--color-1) 0%,var(--color-1) 40%,var(--color-2) 40%,var(--color-2) 60%,var(--color-3) 60%,var(--color-3) 100%);
+.container h2 {
+    text-align: center;
 }
 
-.circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    background-color: var(--out);
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
+.container p {
+    text-align: left;
+    margin: auto auto;
+    padding: 30px;
+}
+
+ul.songs {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul.songs li {
     display: flex;
     align-items: center;
-    justify-content: center;
-    animation: color 8s linear infinite forwards;
-    animation-play-state: paused;
+    justify-content: space-between;
+    margin: 10px 0;
 }
 
-.circle p {
-    font-size: 1.3rem;
-    font-weight: bold;
+.btn {
+    background-color: #9c88ff;
+    border: 0;
+    border-radius: 20px;
+    color: #f5f6fa;
+    padding: 5px 10px;
 }
 
-.pointer-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
+.centered {
     display: flex;
-    align-items: center;
     justify-content: center;
-    z-index: 100;
-    transform: rotate(0deg);
-    animation: rotate 8s linear infinite;
-    animation-play-state: paused;
 }
 
-.pointer {
-    position: absolute;
-    top: -135px;
-    width: 20px;
-    height: 20px;
-    background-color: whitesmoke;
-    border-radius: 50%;
-}
-
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes color {
-    0% {
-        background-color: var(--out);
-    }
-    50% {
-        background-color: var(--in);
-    }
-    100% {
-        background-color: var(--out);
-    }
+.centered button {
+    margin: 15px;
 }
