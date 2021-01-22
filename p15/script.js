@@ -1,105 +1,166 @@
-// Get DOM elements
-// Get the search form
-const form = document.getElementById('form');
-// Get the Input text field
-const search = document.getElementById('search');
-// Get the results container
-const results = document.getElementById('results');
-// Get the pagination container
-const pagination = document.getElementById('pagination');
+// Get all DOM elements required
+// HTML5 Main element for the grid
+const main = document.getElementById('main');
+// Select box for changeing voices
+const voiceSelect = document.getElementById('voices');
+// Toggle button to display custom text input
+const toggleBtn = document.getElementById('toggle');
+// Button to close the custom text div
+const closeBtn = document.getElementById('close');
+//Text area for custom text input
+const customText = document.getElementById('text');
+// button to read the custom text'I am angry'
+const readBtn = document.getElementById('read');
+//Custom text div
+const customTextDiv = document.getElementById('custom-text');
 
-// Base URL for API fetch
-const api = 'https://api.lyrics.ovh';
-
-// Functions
-// 1. Function to search song title and artist
-async function searchSongs(term) {
-    const res = await fetch(`${api}/suggest/${term}`);
-    const data = await res.json();
-
-    showData(data);
-}
-
-// 2. Function to display data from search in the DOM
-function showData(data) {
-    // Display the first set of songs in the DOM
-    results.innerHTML = `
-        <ul class="songs">
-            ${data.data.map( 
-                    song =>  `
-                        <li>
-                            <span>${song.artist.name} - ${song.title}</span>
-                            <button class="btn" data-artist="${song.artist.name}" data-title="${song.title}">Get Lyrics</button>
-                        </li>
-                    `
-                ).join('')
-            }
-        </ul>
-    `;
-
-    // Add Pagination if required
-    if ( data.prev || data.next ) {
-        pagination.innerHTML = `
-            ${ data.prev ? `<button class="btn" onClick="getMoreSongs('${data.prev}')">Prev</button>` : '' }
-            ${ data.next ? `<button class="btn" onClick="getMoreSongs('${data.next}')">Next</button>` : '' }
-        `;
-    } else {
-        pagination.innerHTML = '';
+// Array for holding all images and text to be read
+const data = [
+    {
+        image: './img/angry boy1.jpg',
+        text: "I'm Angry"
+    },
+    {
+        image: './img/drink.jpeg',
+        text: "I'm Thirsty"
+    },
+    {
+        image: './img/food.jpeg',
+        text: "I'm Hungry"
+    },
+    {
+        image: './img/grandma.jpeg',
+        text: "I want to go to Grandma's"
+    },
+    {
+        image: './img/happy.jpg',
+        text: "I'm Happy"
+    },
+    {
+        image: './img/house.jpeg',
+        text: "I Want to go Home"
+    },
+    {
+        image: './img/hurt.jpeg',
+        text: "I'm Hurt"
+    },
+    {
+        image: './img/outside.jpeg',
+        text: "I Want to go Outside"
+    },
+    {
+        image: './img/sad.jpeg',
+        text: "I'm Sad"
+    },
+    {
+        image: './img/scared.jpg',
+        text: "I'm Scared"
+    },
+    {
+        image: './img/school.jpeg',
+        text: "I Want to go to School"
+    },
+    {
+        image: './img/tired.jpeg',
+        text: "I'm Tired"
     }
-}
+]
 
-// 3. Function to get the previous or next songs from API
-async function getMoreSongs(url) {
-    const res = await fetch(`https://cors-anywhere.herokuapp.com/${url}`);
-    const data = await res.json();
+// Array for all web speech api
+let voicesBackup = [];
 
-    showData(data);
-}
+//Create a box for each object in the data array
+data.forEach(createBox);
 
-// 4. Function to get the lyrics of a song
-async function getLyrics(artist, title) {
-    const res = await fetch(`${api}/v1/${artist}/${title}`);
-    const data = await res.json();
-
-    console.log(data.lyrics);
-
-    const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '</br>');
-
-    results.innerHTML = `
-        <h2>${artist} - ${title}</h2>
-        <p>${lyrics}</p>
+//Functions
+// 1. function to create speech boxes
+function createBox(imageObj) { 
+    //Creat empty div for the image to be added in the main grid later
+    const box = document.createElement('div');
+    //Get the image url and text from image from the data array
+    const { image, text } = imageObj;
+    // Apply a css class to the new div
+    box.classList.add('box');
+    // Add the image inside the box
+    box.innerHTML = `
+        <img src="${image}" alt="${text}" />
+        <p class="imageInfo">${text}</p>
     `;
-
-    pagination.innerHTML = '';
-
+    //Add event for speaking text
+    box.addEventListener('click', () => {
+        setMessage(text);
+        speakText();
+    })
+    // Add the new box to the DOM
+    main.appendChild(box);
 }
 
 
-// Event Listeners
-// 1. Event Listener for search form
-form.addEventListener('submit', e => {
-    // Prevent the reload of page on submit
-    e.preventDefault();
-    // Get the search term from the input field
-    const searchTerm = search.value.trim();
-    // Check if search term is valid
-    if (searchTerm) {
-        searchSongs(searchTerm);
-    } else {
-        alert('Please enter a valid search')
+//Initialise speech synthesis
+const message = new SpeechSynthesisUtterance();
+
+// 2. Function to get voices from Web Speech API and put into the select box
+function populateVoiceList() {
+    if(typeof speechSynthesis === 'undefined') {
+      return;
     }
+  
+    let voices = speechSynthesis.getVoices();
+    voicesBackup = voices;
+  
+    for(var i = 0; i < voices.length; i++) {
+      var option = document.createElement('option');
+      option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
+      
+      if(voices[i].default) {
+        option.textContent += ' -- DEFAULT';
+      }
+  
+      option.setAttribute('data-lang', voices[i].lang);
+      option.setAttribute('data-name', voices[i].name);
+      voiceSelect.appendChild(option);
+    }
+  }
+
+
+// 3. Set the text for speech synthesis
+function setMessage(text) {
+    message.text = text;
+}
+
+// 4. To speak the text
+function speakText() {
+    speechSynthesis.speak(message);
+}
+
+//5. Function to set the new voice
+function setVoice(e) {
+    message.voice = voicesBackup.find(voice => voice.name === e.target.value);
+} 
+
+//Execute populate voice list function
+  populateVoiceList();
+if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
+speechSynthesis.onvoiceschanged = populateVoiceList;
+}
+
+// Event Listener
+// 1 Toggle button
+toggleBtn.addEventListener('click', () => {
+    customTextDiv.classList.toggle('show');
 })
 
-// 2. Event Listener to Get Lyrics to a Song on Click of Button
-results.addEventListener('click', e => {
-    // Find out what was clicked
-    const clickedElement = e.target;
-    // Check if clicked element is a button
-    if ( clickedElement.tagName === 'BUTTON' ) {
-        // Get artist name and song title from HTML5 custom properties on button
-        const artist = clickedElement.getAttribute('data-artist');
-        const title = clickedElement.getAttribute('data-title');
-        // Now fetch the lyrics
-        getLyrics(artist, title);
-    }
+//Close button and custom text div
+closeBtn.addEventListener('click', () => {
+    customTextDiv.classList.remove('show');
+})
+
+//Event listener when changing voices
+speechSynthesis.addEventListener('voiceschanged', populateVoiceList);
+voiceSelect.addEventListener('change', setVoice);
+
+//Eventlistener for custom text reader
+readBtn.addEventListener('click', () => {
+    setMessage(customText.value);
+    speakText();
 })
