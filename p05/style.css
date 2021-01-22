@@ -3,70 +3,85 @@
 }
 
 body {
-    background: rosybrown;
-    font-family: 'Times New Roman', Times, serif;
+    background-color:rgba(255, 214, 102, 1);
+    font-family: Georgia, 'Times New Roman', Times, serif;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
+    justify-content: center;
+    height: 100vh;
     margin: 0;
+    padding: 20px;
 }
 
-.container {
-    display: flex;
-    padding: 25px;
-    margin: 0 auto;
-    width: 800px;
-    max-width: 100%;
+h1 {
+    color:black;
+    text-align: center;
 }
 
-aside {
-    padding: 10px 20px;
-    width: 250px;
-    border-right: 1px solid black;
+p {
+    color:black;
+    text-align: center;
 }
 
-button {
-    cursor: pointer;
-    background-color: wheat;
-    border: 1px solid black;
-    border-radius: 5px;
-    display: block;
+.img{
+    width: 350px
+}
+
+.img:hover {
+    transform: scale(1.1);
+}
+
+#amount-one {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    font-weight: bold;
+    border: 2px solid black;
+}
+.currency {
+    padding: 10px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.currency select {
+    padding: 1px 10px;
+    border: 2px solid black;
     font-size: 16px;
+    width: 60%;
 }
 
-main {
-    flex: 1;
-    padding: 10px 20px ;
+.currency input {
+    border: 2px solid black;
+    background: transparent;
+    color: black;
+    font-size: 20px;
+    text-align: right;
+    width: 50%;
 }
 
-h2 {
-    border-bottom: 1px solid black;
-    padding-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    font-weight: 400;
-    margin: 0 0 25px;
-
+select:focus, input:focus, button:focus {
+    outline: 0;
 }
 
-h3 {
-    background-color: white;
-    border-bottom: 1px solid black;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    font-weight: 400;
-    margin: 20px 0 0;
+#button {
+    background: black;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: underline;
+    padding: 10px 100px;
+    border: 1px solid black;
+    margin-top: 30px;
+    
 }
 
-.name {
-    display: flex;
-    justify-content: space-between;
-    font-size: 18px;
-    margin-bottom: 10px;
+.rate {
+    color: white;
+    font-size: 22px;
+    padding: 0 10px;
+    text-align: center;
+    justify-content: center;
+    font-weight: bold;
 }
